@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>kodak_from_each_slide.R</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<!-- Automatically generated by RStudio [12861c30b10411e1afa60800200c9a66] -->
+
+<h3>kodak_from_each_slide.R</h3>
+
+<p>sean &mdash; <em>Aug 1, 2013, 5:31 PM</em></p>
+
+<pre><code class="r">#read in csv
+kodak&lt;-read.csv(&quot;kodak_from_each_slide.csv&quot;)
+kodak&lt;-kodak[!is.na(kodak$slide.no),]
+
+#we want to calculate the variance of these different measurments
+cvSave&lt;-vector()
+for(std in 0:4){
+newDataSet&lt;-kodak[(kodak$std.no.==std),]
+stdev&lt;-sd(newDataSet$gray.values)
+meanK&lt;-mean(newDataSet$gray.values)
+cv&lt;-(stdev/meanK)
+cvSave&lt;-c(cvSave,cv*100)
+}
+
+correctSTD&lt;-kodak$std.no
+correctSTD[correctSTD==1]&lt;-.05
+correctSTD[correctSTD==2]&lt;-(.05+.15)
+correctSTD[correctSTD==3]&lt;-(.05+.15+.15)
+correctSTD[correctSTD==4]&lt;-(.05+.15+.15+.15)
+kodak2&lt;-kodak
+kodak2[kodak2$std.no.==0,3]&lt;-0
+
+boxplot(gray.values~correctSTD,data=kodak)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-1"/> </p>
+
+<pre><code class="r">plot(gray.values~correctSTD,data=kodak)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-1"/> </p>
+
+<pre><code class="r">
+kodak$correctSTD&lt;-correctSTD
+
+
+kodak2&lt;-kodak[(kodak$std.no.==1|kodak$std.no.==2|kodak$std.no.==3),]
+
+lm2&lt;-lm(gray.values~correctSTD,data=kodak2)
+kodak[(kodak$std.no.!=4),]
+</code></pre>
+
+<pre><code>    slide.no std.no. gray.values correctSTD
+1          1       0        4059       0.00
+2          1       1       17141       0.05
+3          1       2       32387       0.20
+4          1       3       43243       0.35
+7          2       0        3855       0.00
+8          2       1       16862       0.05
+9          2       2       32031       0.20
+10         2       3       42930       0.35
+13         3       0        3702       0.00
+14         3       1       16348       0.05
+15         3       2       31394       0.20
+16         3       3       42268       0.35
+19         4       0        3900       0.00
+20         4       1       16841       0.05
+21         4       2       31917       0.20
+22         4       3       42758       0.35
+25         5       0        4094       0.00
+26         5       1       16687       0.05
+27         5       2       31675       0.20
+28         5       3       42624       0.35
+31         6       0        4266       0.00
+32         6       1       17083       0.05
+33         6       2       32128       0.20
+34         6       3       43033       0.35
+37         7       0        4174       0.00
+38         7       1       17043       0.05
+39         7       2       32199       0.20
+40         7       3       43090       0.35
+43         8       0        3959       0.00
+44         8       1       16694       0.05
+45         8       2       31763       0.20
+46         8       3       42661       0.35
+49         9       0        3990       0.00
+50         9       1       16497       0.05
+51         9       2       31540       0.20
+52         9       3       42539       0.35
+55        10       0        4059       0.00
+56        10       1       16795       0.05
+57        10       2       31872       0.20
+58        10       3       42810       0.35
+61        11       0        4164       0.00
+62        11       1       16783       0.05
+63        11       2       31789       0.20
+64        11       3       42759       0.35
+67        12       0        4056       0.00
+68        12       1       16733       0.05
+69        12       2       32081       0.20
+70        12       3       43006       0.35
+73        13       0        3716       0.00
+74        13       1       16469       0.05
+75        13       2       31831       0.20
+76        13       3       42740       0.35
+79        14       0        3913       0.00
+80        14       1       16768       0.05
+81        14       2       32130       0.20
+82        14       3       43014       0.35
+85        15       0        4306       0.00
+86        15       1       16855       0.05
+87        15       2       31962       0.20
+88        15       3       42832       0.35
+91        16       0        3984       0.00
+92        16       1       16771       0.05
+93        16       2       32089       0.20
+94        16       3       42991       0.35
+97        17       0        3686       0.00
+98        17       1       16466       0.05
+99        17       2       31776       0.20
+100       17       3       42658       0.35
+103       18       0        4176       0.00
+104       18       1       17062       0.05
+105       18       2       32514       0.20
+106       18       3       43363       0.35
+109       19       0        4021       0.00
+110       19       1       16837       0.05
+111       19       2       32386       0.20
+112       19       3       43330       0.35
+115       20       0        4089       0.00
+116       20       1       16885       0.05
+117       20       2       32411       0.20
+118       20       3       43333       0.35
+121       21       0        3701       0.00
+122       21       1       16714       0.05
+123       21       2       32288       0.20
+124       21       3       43166       0.35
+127       22       0        3649       0.00
+128       22       1       16418       0.05
+129       22       2       31940       0.20
+130       22       3       42851       0.35
+133       23       0        4264       0.00
+134       23       1       17014       0.05
+135       23       2       32510       0.20
+136       23       3       43395       0.35
+139       24       0        4210       0.00
+140       24       1       16815       0.05
+141       24       2       32303       0.20
+142       24       3       43240       0.35
+145       25       0        3801       0.00
+146       25       1       16681       0.05
+147       25       2       32313       0.20
+148       25       3       43382       0.35
+151       26       0        3822       0.00
+152       26       1       16679       0.05
+153       26       2       32412       0.20
+154       26       3       43345       0.35
+157       27       0        4666       0.00
+158       27       1       17145       0.05
+159       27       2       32521       0.20
+160       27       3       43480       0.35
+163       28       0        4232       0.00
+164       28       1       17017       0.05
+165       28       2       32508       0.20
+166       28       3       43442       0.35
+169       29       0        3923       0.00
+170       29       1       16723       0.05
+171       29       2       32193       0.20
+172       29       3       43102       0.35
+175       30       0        4237       0.00
+176       30       1       16761       0.05
+177       30       2       32187       0.20
+178       30       3       43118       0.35
+181       31       0        4260       0.00
+182       31       1       16887       0.05
+183       31       2       32410       0.20
+184       31       3       43348       0.35
+187       32       0        4301       0.00
+188       32       1       16878       0.05
+189       32       2       32420       0.20
+190       32       3       43390       0.35
+193       33       0        4134       0.00
+194       33       1       16817       0.05
+195       33       2       32327       0.20
+196       33       3       43252       0.35
+199       34       0        3831       0.00
+200       34       1       16367       0.05
+201       34       2       31894       0.20
+202       34       3       42858       0.35
+205       35       0        4244       0.00
+206       35       1       16942       0.05
+207       35       2       32481       0.20
+208       35       3       43433       0.35
+211       36       0        4124       0.00
+212       36       1       16916       0.05
+213       36       2       32440       0.20
+214       36       3       43375       0.35
+217       37       0        3677       0.00
+218       37       1       16351       0.05
+219       37       2       31791       0.20
+220       37       3       42703       0.35
+223       38       0        3947       0.00
+224       38       1       16497       0.05
+225       38       2       32024       0.20
+226       38       3       42972       0.35
+229       39       0        4146       0.00
+230       39       1       16743       0.05
+231       39       2       32160       0.20
+232       39       3       43096       0.35
+235       40       0        3880       0.00
+236       40       1       16480       0.05
+237       40       2       31927       0.20
+238       40       3       42942       0.35
+241       41       0        3933       0.00
+242       41       1       16774       0.05
+243       41       2       32198       0.20
+244       41       3       43158       0.35
+247       42       0        4079       0.00
+248       42       1       16779       0.05
+249       42       2       32231       0.20
+250       42       3       43215       0.35
+253       43       0        4113       0.00
+254       43       1       16316       0.05
+255       43       2       31978       0.20
+256       43       3       42899       0.35
+259       44       0        4040       0.00
+260       44       1       16807       0.05
+261       44       2       32443       0.20
+262       44       3       43325       0.35
+265       45       0        4196       0.00
+266       45       1       16701       0.05
+267       45       2       32077       0.20
+268       45       3       43518       0.35
+</code></pre>
+
+<pre><code class="r">
+pdf(file=&quot;scan_variation.pdf&quot;,height=7,width=10)
+plot(gray.values~std.no.,data=kodak[(kodak$std.no.!=4),],xlab=&quot;kodak standard&quot;,ylab=&quot;gray level&quot;,pch=16,col=&quot;#2CA25F15&quot;,main=&quot;variation across 45 independent scans&quot;)
+abline(lm2,col=&quot;blue&quot;,lwd=2)
+text(2.3,15000,paste(&quot;R-square&quot;,round(summary(lm2)$adj.r.squared,3),sep=&quot;=&quot;))
+text(2.3,13500,paste(&quot;average CV&quot;,round(mean(cvSave[1:4]),3),sep=&quot;=&quot;))
+dev.off()
+</code></pre>
+
+<pre><code>pdf 
+  2 
+</code></pre>
+
+<pre><code class="r">ls()
+</code></pre>
+
+<pre><code> [1] &quot;correctSTD&quot; &quot;cv&quot;         &quot;cvSave&quot;     &quot;kodak&quot;      &quot;kodak2&quot;    
+ [6] &quot;lm2&quot;        &quot;meanK&quot;      &quot;newDataSet&quot; &quot;std&quot;        &quot;stdev&quot;     
+</code></pre>
+
+<pre><code class="r">
+</code></pre>
+
+</body>
+
+</html>
+

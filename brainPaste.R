@@ -1,4 +1,4 @@
-bp<-read.csv("/home/sean/Desktop/brainPaste.csv")
+bp<-read.csv("brainPaste.csv")
 means<-aggregate(bp$gray.value,by=list(bp$thickness),FUN=mean)
 names(means)<-c("thickness","average.gray.value")
 plot(gray.value~thickness,data=bp,col="#43A2CA76",pch=16,xlab="Brain Paste thickness",ylab="gray level")

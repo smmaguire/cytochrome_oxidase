@@ -4,8 +4,16 @@
 #klrlm<-(lm(klr$mean~std))
 
 #Going to use the measurments from all the slides has better R-squared
-
+kodak<-read.csv("kodak_from_each_slide.csv")
+correctSTD<-kodak$std.no
+correctSTD[correctSTD==1]<-.05
+correctSTD[correctSTD==2]<-(.05+.15)
+correctSTD[correctSTD==3]<-(.05+.15+.15)
+correctSTD[correctSTD==4]<-(.05+.15+.15+.15)
+kodak$correctSTD<-correctSTD
 kodak2<-kodak[(kodak$std.no.==1|kodak$std.no.==2|kodak$std.no.==3),]
+
+
 
 lm2<-lm(gray.values~correctSTD,data=kodak2)
 
