@@ -21,19 +21,12 @@ kodak2<-kodak
 kodak2[kodak2$std.no.==0,3]<-0
 
 boxplot(gray.values~correctSTD,data=kodak)
-plot(gray.values~correctSTD,data=kodak2)
+plot(gray.values~correctSTD,data=kodak)
+
+kodak$correctSTD<-correctSTD
 
 
-myFirstLM<-lm(gray.values~std.no.,data=kodak)
-
-kodak[(kodak$std.no.==0|kodak$std.no.==1|kodak$std.no.==2|kodak$std.no.==3),]
-kodak[(kodak$std.no.!=4),]
-xx<-which(kodak$std.no.==4)
-kodak[-xx,]
-kodak2<-kodak
-kodak2$correctSTD<-correctSTD
-kodak2<-kodak2[kodak2$correctSTD!=.5,]
-kodak2<-kodak2[kodak2$correctSTD!=0,]
+kodak2<-kodak[(kodak$std.no.==1|kodak$std.no.==2|kodak$std.no.==3),]
 
 lm2<-lm(gray.values~correctSTD,data=kodak2)
 kodak[(kodak$std.no.!=4),]
